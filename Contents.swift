@@ -3,12 +3,16 @@
 import PlaygroundSupport
 import UIKit
 
-class MyViewController: UIViewController {
+class firstViewController: UIViewController {
     
     override func loadView() {
         let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: 1194, height: 834)
+        self.view = view
         view.backgroundColor = .black
+        //colocar imagem de fundo
+        //let imagem = UIImage(named:"fundoStart.png"
+        //let imagemView = UIImageView(image: imagem)
+        //imagemView.frame =
         
         
         let label = UILabel()
@@ -25,16 +29,31 @@ class MyViewController: UIViewController {
         buttonStart.frame = CGRect (x: 90, y: 260, width: 200, height: 40)
         buttonStart.setTitle("start", for: .normal)
         view.addSubview(buttonStart)
-        buttonStart.addTarget(self, action: #selector(MyViewController.touchedStart), for: .touchUpInside)
-        self.view = view
+        buttonStart.addTarget(self, action: #selector(firstViewController.touchedStart), for: .touchUpInside)
+       
         view.addSubview(label)
         view.addSubview(buttonStart)
     }
     
     @IBAction func touchedStart(){
-        //ir pra proxima pagina
+        show(secondPage, sender: nil)
     }
 }
-let firstPage = MyViewController()
-PlaygroundPage.current.liveView = firstPage
 
+class secondViewController: UIViewController {
+    override func loadView() {
+        let view = UIView()
+        view.backgroundColor = .blue
+        self.view = view
+    }
+}
+
+let firstPage = firstViewController (screenType: .ipad, isPortrait: false)
+let secondPage = secondViewController (screenType: .ipad, isPortrait: false)
+secondPage.modalPresentationStyle = .fullScreen
+
+let navigation = UINavigationController(screenType: .ipad, isPortrait: false)
+navigation.pushViewController (firstpage, animated: false)
+navigation.navigationBar.isHidden =  true
+
+PlaygroundPage.current.liveView = navigation.scale(to: 0.5)
